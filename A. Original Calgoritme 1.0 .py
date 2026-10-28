@@ -1,25 +1,25 @@
-print  ("====================BIEVENU DANS CALGORITME=====================")
-def calculatrice():
-    while True:
-        expression = input("Entrez votre calcul  : ")
-        
-        if expression.lower() == 'quitter':
-            print("Au revoir !")
-            break
-            
-        try:
-            # Filtre pour n'accepter que les caractères mathématiques de base
-            if not all(c in "0123456789+-*/. " for c in expression):
-                print("Erreur : Caractères non autorisés.")
-                continue
-                
-            resultat = eval(expression)
-            print(f"Résultat : {resultat}")
-            
-        except ZeroDivisionError:
-            print("Erreur : Division par zéro impossible.")
-        except Exception:
-            print("Erreur : Calcul invalide.")
+import streamlit as st
 
-if __name__ == "__main__":
-    calculatrice()
+st.title("🧮 Calgoritme")
+st.write("Bienvenue dans Calgoritme !")
+
+# Une case pour taper le calcul
+expression = st.text_input("Entrez votre calcul :")
+
+if expression:
+    if expression.lower() == 'quitter':
+        st.write("Au revoir !")
+    else:
+        # Filtre pour n'accepter que les caractères mathématiques de base
+        if not all(c in "0123456789+-*/. " for c in expression):
+            st.error("Erreur : Caractères non autorisés.")
+        else:
+            try:
+                resultat = eval(expression)
+                st.success(f"Résultat : {resultat}")
+            except ZeroDivisionError:
+                st.error("Erreur : Division par zéro impossible.")
+            except Exception:
+                st.error("Erreur : Calcul invalide.")
+
+
